@@ -1,41 +1,37 @@
-#!/usr/bin/env python3
-"""
-    Here we define a class FileStorage
-"""
-
+#!/usr/bin/python3
+"""Defines the FileStorage class."""
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class FileStorage:
-    """
-        this represents an abstract storage engine.
-        Attributes:
-            __file_path(str): the name of the file to save in
-            __objects (dict): A dictionary of intantiated objects.
-    """
+    """Represent an abstracted storage engine.
 
+    Attributes:
+        __file_path (str): The name of the file to save objects to.
+        __objects (dict): A dictionary of instantiated objects.
+    """
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """
-            returns the dictionary FileStorage.__objects
-        """
+        """Return the dictionary __objects."""
         return FileStorage.__objects
 
     def new(self, obj):
-        """
-            sets __objects with key <obj_class_name>.id
-        """
+        """Set in __objects obj with key <obj_class_name>.id"""
         ocname = obj.__class__.__name__
         FileStorage.__objects["{}.{}".format(ocname, obj.id)] = obj
 
     def save(self):
-        """
-            Serialize __objects to JSON file __file_path
-        """
-        obj_dict = FileStorage.__objects
+        """Serialize __objects to the JSON file __file_path."""
+        odict = FileStorage.__objects
         objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
         with open(FileStorage.__file_path, "w") as f:
             json.dump(objdict, f)
