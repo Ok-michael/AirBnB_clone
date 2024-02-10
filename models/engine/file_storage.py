@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-    We define a class FileStorage here
+    Here we define a class FileStorage
 """
 
 import json
