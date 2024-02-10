@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-    Here we define a class FileStorage
+    We define a class FileStorage here
 """
 
 import json
 from models.base_model import BaseModel
+
 
 class FileStorage:
     """
