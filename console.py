@@ -2,7 +2,16 @@
 import cmd
 from models.base_model import BaseModel
 import re
-from parser import parse
+from _parser import parse
+from models import storage
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,7 +23,15 @@ class HBNBCommand(cmd.Cmd):
             prompt (str): This is the command prompt.
     """
     
-    __lst = []
+    __lst = [
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
+        ]
 
     prompt = "(hbnb) "
 
@@ -40,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
         val = parse(arg)
         if len(val) == 0:
             print("** class name missing **")
-        elif val[0] not in HBNBCommand.__classes:
+        elif val[0] not in HBNBCommand.__lst:
             print("** class doesn't exist **")
         else:
             print(eval(val[0])().id)
@@ -54,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
         objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
-        elif argl[0] not in HBNBCommand.__classes:
+        elif argl[0] not in HBNBCommand.__lst:
             print("** class doesn't exist **")
         elif len(argl) == 1:
             print("** instance id missing **")
@@ -69,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
         objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
-        elif argl[0] not in HBNBCommand.__classes:
+        elif argl[0] not in HBNBCommand.__lst:
             print("** class doesn't exist **")
         elif len(argl) == 1:
             print("** instance id missing **")
@@ -84,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
         Display string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
         argl = parse(arg)
-        if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
+        if len(argl) > 0 and argl[0] not in HBNBCommand.__lst:
             print("** class doesn't exist **")
         else:
             objl = []
@@ -117,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
         if len(argl) == 0:
             print("** class name missing **")
             return False
-        if argl[0] not in HBNBCommand.__classes:
+        if argl[0] not in HBNBCommand.__lst:
             print("** class doesn't exist **")
             return False
         if len(argl) == 1:
